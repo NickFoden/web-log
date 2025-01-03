@@ -1,0 +1,6 @@
+runtime: go122
+service: web-log
+handlers:
+  - url: /.*
+    secure: always
+    script: auto

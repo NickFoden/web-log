@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{ .Title }}</title>
+    <link rel="stylesheet" href="/static/css/style.css" />
+    <script src="https://unpkg.com/htmx.org@1.9.4"></script>
+  </head>
+  <body>
+    <header>
+      <a href="/">Home</a>
+      <h1>My Blog</h1>
+    </header>
+    <main><div class="main">{{block "content" .}}{{end}}</div></main>
+    <footer>
+      <p>&copy; 2025 My Blog</p>
+    </footer>
+  </body>
+</html>

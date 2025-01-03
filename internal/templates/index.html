@@ -1,0 +1,7 @@
+{{template "base.html" .}} {{ define "content" }}
+<ul>
+  {{ range .Posts }}
+  <li><a href="/posts/{{ .Slug }}">{{ .Title }}</a></li>
+  {{ end }}
+</ul>
+{{ end }}

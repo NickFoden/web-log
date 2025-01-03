@@ -1,0 +1,35 @@
+steps:
+  - name: "golang:1.22"
+    args: ["go", "get", "-d", "./..."]
+    env:
+      - "GO_VERSION=1.22"
+      - "GOPATH=/gopath"
+    volumes:
+      - name: "go"
+        path: "/gopath"
+  - name: "golang:1.22"
+    args: ["go", "build", "-o", "main", "."]
+    env:
+      - "GO_VERSION=1.22"
+      - "GOPATH=/gopath"
+    volumes:
+      - name: "go"
+        path: "/gopath"
+  - name: "gcr.io/cloud-builders/gcloud"
+    args: ["app", "deploy"]
+    timeout: "1600s"
+    env:
+      - "GO_VERSION=1.22"
+      - "GOPATH=/gopath"
+    volumes:
+      - name: "go"
+        path: "/gopath"
+  - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+    entrypoint: "bash"
+    args:
+      - "-c"
+      - |
+        versions=$(gcloud app versions list --service web-log --sort-by '~version' --format 'value(VERSION.ID)' | sed 1,10d)
+        for version in $versions; do
+          gcloud app versions delete $version --service web-log --quiet || echo "Error deleting version: $version"
+        done

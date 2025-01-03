@@ -1,0 +1,10 @@
+{{ template "base.html" . }}
+
+{{define "content"}}
+<div class="posts">
+    <article>
+        <h2>{{.Post.Title}}</h2>
+        <p>{{.Post.Content}}</p>
+    </article>
+</div>
+{{end}}
