@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <title>{{ .Title }}</title>
     <link rel="stylesheet" href="/static/css/style.css" />
@@ -7,12 +7,23 @@
   </head>
   <body>
     <header>
-      <a href="/">Home</a>
-      <h1>My Blog</h1>
+      <a href="/">
+        <h1>Nick Foden</h1>
+      </a>
     </header>
-    <main><div class="main">{{block "content" .}}{{end}}</div></main>
+    <main>{{block "content" .}}{{end}}</main>
     <footer>
-      <p>&copy; 2025 My Blog</p>
+      <p>
+        &copy;
+        <span
+          hx-get="/get_current_year"
+          hx-trigger="load"
+          hx-target="#current_year"
+          hx-swap="outerhtml"
+          id="current_year"
+        ></span>
+        Nick Foden Web Log
+      </p>
     </footer>
   </body>
 </html>

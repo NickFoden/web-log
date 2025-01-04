@@ -1,10 +1,9 @@
-{{ template "base.html" . }}
-
-{{define "content"}}
-<div class="posts">
-    <article>
-        <h2>{{.Post.Title}}</h2>
-        <p>{{.Post.Content}}</p>
-    </article>
+{{ template "base.html" . }} {{define "content"}}
+<div class="post">
+  <article>
+    <h2>{{.Post.Title}}</h2>
+    <p>{{.Post.CreatedAt.Format "2006-01-02"}}</p>
+    {{.Content}}
+  </article>
 </div>
 {{end}}

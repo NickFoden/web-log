@@ -1,8 +1,24 @@
+a {
+  color: black;
+}
+
+article {
+  margin: 24px;
+}
+
 body {
   font-family: sans-serif;
   margin: 20px;
 }
 
+footer {
+  text-align: center;
+}
+
 h1 {
-  font-size: 12px;
+  font-size: 18px;
+}
+
+main {
+  min-height: 80vh;
 }

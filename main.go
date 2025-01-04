@@ -7,11 +7,12 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"time"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
+	"github.com/nickfoden/web-log/internal/content"
 	"github.com/nickfoden/web-log/internal/handlers"
-	"github.com/nickfoden/web-log/internal/models"
 )
 
 func main() {
@@ -27,16 +28,17 @@ func main() {
 	filesDir := http.Dir(filepath.Join(workDir, "static"))
 	FileServer(r, "/static", filesDir)
 
-	posts := []models.Post{
-		{Title: "First Post", Content: "This is the first post.", Slug: "first-post"},
-		{Title: "Second Post", Content: "This is the second post.", Slug: "second-post"},
-	}
+	posts := content.GetAllPosts()
 
 	// Handlers
 	blogHandler := handlers.NewBlogHandler(posts)
 
 	r.Get("/", blogHandler.Index)
 	r.Get("/posts/{slug}", blogHandler.Post)
+	r.Get("/get_current_year", (func(w http.ResponseWriter, r *http.Request) {
+		year := time.Now().Year()
+		fmt.Fprintf(w, "%d", year)
+	}))
 
 	port := os.Getenv("PORT")
 	if port == "" {
