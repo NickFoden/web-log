@@ -48,6 +48,13 @@ func (h *BlogHandler) Index(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
+func (h *BlogHandler) About(w http.ResponseWriter, r *http.Request) {
+
+	renderTemplate(w, "about.html", map[string]interface{}{
+		"Title": "Web Log by Nick Foden",
+	})
+}
+
 func (h *BlogHandler) Post(w http.ResponseWriter, r *http.Request) {
 	slug := chi.URLParam(r, "slug")
 

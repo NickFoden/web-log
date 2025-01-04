@@ -33,8 +33,12 @@ func main() {
 	// Handlers
 	blogHandler := handlers.NewBlogHandler(posts)
 
+	// Pages
 	r.Get("/", blogHandler.Index)
+	r.Get("/about", blogHandler.About)
 	r.Get("/posts/{slug}", blogHandler.Post)
+
+	// API
 	r.Get("/get_current_year", (func(w http.ResponseWriter, r *http.Request) {
 		year := time.Now().Year()
 		fmt.Fprintf(w, "%d", year)
