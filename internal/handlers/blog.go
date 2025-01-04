@@ -60,6 +60,7 @@ func (h *BlogHandler) Post(w http.ResponseWriter, r *http.Request) {
 			}
 			renderTemplate(w, "post.html", map[string]interface{}{
 				"Content": template.HTML(content),
+				"Title":   "Web Log by Nick Foden",
 				"Post":    post,
 			})
 			return
