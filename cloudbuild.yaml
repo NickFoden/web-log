@@ -33,3 +33,5 @@ steps:
         for version in $versions; do
           gcloud app versions delete $version --service web-log --quiet || echo "Error deleting version: $version"
         done
+options:
+  logging: CLOUD_LOGGING_ONLY
