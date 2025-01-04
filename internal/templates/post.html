@@ -1,8 +1,8 @@
 {{ template "base.html" . }} {{define "content"}}
 <div class="post">
   <article>
-    <h2>{{.Post.Title}}</h2>
-    <p>{{.Post.CreatedAt.Format "2006-01-02"}}</p>
+    <h2 class="font_roboto-condensed">{{.Post.Title}}</h2>
+    <p class="font_roboto-condensed">{{.Post.CreatedAt.Format "2006-01-02"}}</p>
     {{.Content}}
   </article>
 </div>

@@ -8,9 +8,10 @@ import (
 
 var posts = []models.Post{
 	{Title: "New Web Log Alert",
-		Content:   "",
-		CreatedAt: time.Date(2025, 1, 3, 0, 0, 0, 0, time.UTC),
-		Slug:      "1"},
+		Content:        "",
+		ContentPreview: "A \"simple\" web log built with Go and html + htmx.",
+		CreatedAt:      time.Date(2025, 1, 3, 0, 0, 0, 0, time.UTC),
+		Slug:           "1"},
 }
 
 func GetAllPosts() []models.Post {
