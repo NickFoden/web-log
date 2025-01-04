@@ -3,17 +3,36 @@
   <head>
     <title>{{ .Title }}</title>
     <link rel="stylesheet" href="/static/css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Sixtyfour&display=swap"
+      rel="stylesheet"
+    />
     <script src="https://unpkg.com/htmx.org@1.9.4"></script>
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-ETK9JGW8YR"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-ETK9JGW8YR");
+    </script>
   </head>
   <body>
     <header>
       <a href="/">
-        <h1>Nick Foden</h1>
+        <h1 class="font_sixtyfour">Web Log</h1>
       </a>
     </header>
     <main>{{block "content" .}}{{end}}</main>
     <footer>
-      <p>
+      <p class="font_sixtyfour">
         &copy;
         <span
           hx-get="/get_current_year"

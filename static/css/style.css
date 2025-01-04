@@ -4,6 +4,7 @@ a {
 
 article {
   margin: 24px;
+  max-width: 768px;
 }
 
 body {
@@ -15,10 +16,70 @@ footer {
   text-align: center;
 }
 
+footer p {
+  font-size: 12px;
+}
+
+header {
+  margin: 0 auto;
+  max-width: 1024px;
+}
+
 h1 {
   font-size: 18px;
 }
 
 main {
+  margin: 0 auto;
+  max-width: 1024px;
   min-height: 80vh;
+  overflow-x: hidden;
+}
+
+.font_sixtyfour {
+  font-family: "Sixtyfour", serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-variation-settings: "BLED" 0, "SCAN" 0;
+  font-weight: 400;
+}
+
+.font_roboto-condensed {
+  font-family: "Roboto Condensed", serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-weight: 400;
+}
+
+.index_post_content_preview {
+  font-size: 14px;
+  margin: 8px 0 0 0;
+}
+
+.index_post_date {
+  font-size: 14px;
+  margin: 0 0 0 8px;
+}
+
+.index_posts_ul {
+  margin: 24px 0 0 0;
+}
+
+.margin_zero {
+  margin: 0 0 0 0;
+}
+
+.post {
+  margin: 48px 0 0 0;
+}
+
+.post_p {
+  font-size: 20px;
+  margin: 8px 0 0 0;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
 }
