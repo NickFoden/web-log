@@ -1,3 +1,5 @@
 dispatch:
-  - url: "blog.nickfoden.dev/*"
+  - url: "nickfoden.dev/*"
+    service: web-log
+  - url: "www.nickfoden.dev/*"
     service: web-log
