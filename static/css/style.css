@@ -26,7 +26,11 @@ header {
 }
 
 h1 {
-  font-size: 18px;
+  font-size: 32px;
+
+  @media only screen and (min-width: 768px) {
+    font-size: 24px;
+  }
 }
 
 main {
@@ -57,8 +61,20 @@ main {
 }
 
 .index_post_date {
-  font-size: 14px;
+  font-size: 16px;
   margin: 0 0 0 8px;
+
+  @media only screen and (min-width: 768px) {
+    font-size: 14px;
+  }
+}
+
+.index_post_link {
+  font-size: 24px;
+
+  @media only screen and (min-width: 768px) {
+    font-size: 18px;
+  }
 }
 
 .index_posts_ul {
