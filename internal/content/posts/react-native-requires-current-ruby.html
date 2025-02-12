@@ -1,0 +1,43 @@
+<p>
+    Hitting issues with React Native setup or errors when running the out of the box starters? You may need to update or
+    check your ruby version. This caught me up the other day on a new machine.
+</p>
+
+<ol>
+    <li>
+        Install Ruby:
+        <div class="code-block">
+            <code>brew install ruby</code>
+        </div>
+    </li>
+    <li>
+        Get the prefix path for Ruby:
+        <div class="code-block">
+            <code>brew --prefix ruby</code>
+        </div>
+    </li>
+    <li>
+        Add Ruby to your PATH:
+        <div class="code-block">
+            <code>echo 'export PATH="$(brew --prefix ruby)/bin:$PATH"' >> ~/.zshrc</code>
+        </div>
+    </li>
+    <li>
+        Source your updated .zshrc file:
+        <div class="code-block">
+            <code>source ~/.zshrc</code>
+        </div>
+    </li>
+    <li>
+        Verify Ruby installation:
+        <div class="code-block">
+            <code>ruby -v</code>
+        </div>
+    </li>
+    <li>
+        Install CocoaPods:
+        <div class="code-block">
+            <code>gem install cocoapods</code>
+        </div>
+    </li>
+</ol>
