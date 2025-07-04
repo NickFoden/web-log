@@ -7,6 +7,13 @@ import (
 )
 
 var PostsLibrary = map[string]models.Post{
+	"reduce-the-cost-of-owning-software": {
+		Title:          "Reduce the Cost of Owning Software",
+		Content:        "",
+		ContentPreview: `"We don't need to get better at authoring software, our challenge, the financial challenge to any business is not I need to write more code faster, It's I need to reduce the cost of owning my software"`,
+		CreatedAt:      time.Date(2025, 7, 3, 0, 0, 0, 0, time.UTC),
+		Slug:           "reduce-the-cost-of-owning-software",
+	},
 	"react-native-requires-current-ruby": {
 		Title:          "Ruby for React Native",
 		Content:        "",
