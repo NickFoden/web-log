@@ -68,6 +68,11 @@ main {
   font-weight: 400;
 }
 
+.header_row {
+  display: flex;
+  justify-content: space-between;
+}
+
 .index_post_content_preview {
   font-size: 14px;
   margin: 8px 0 0 0;
@@ -108,7 +113,7 @@ main {
 
 .post_p {
   font-size: 20px;
-  margin: 8px 0 0 0;
+  margin: 8px 0 8px 0;
 }
 
 .row {
