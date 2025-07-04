@@ -25,13 +25,18 @@ steps:
       - name: "go"
         path: "/gopath"
   - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
-    entrypoint: "bash"
+    entrypoint: bash
     args:
       - "-c"
       - |
-        versions=$(gcloud app versions list --service web-log --sort-by '~version' --format 'value(VERSION.ID)' | sed 1,10d)
-        for version in $versions; do
-          gcloud app versions delete $version --service web-log --quiet || echo "Error deleting version: $version"
-        done
+        versions=$(gcloud app versions list --service web-log --sort-by '~version' --format 'value(VERSION.ID)' | tail -n +11)
+        if [ -n "$versions" ]; then
+          echo "Deleting old versions: $versions"
+          for version in $versions; do
+            gcloud app versions delete $version --service web-log --quiet || echo "Error deleting version: $version"
+          done
+        else
+          echo "No old versions to delete"
+        fi
 options:
   logging: CLOUD_LOGGING_ONLY
