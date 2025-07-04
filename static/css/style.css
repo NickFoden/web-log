@@ -71,6 +71,7 @@ main {
 .index_post_content_preview {
   font-size: 14px;
   margin: 8px 0 0 0;
+  max-width: 576px;
 }
 
 .index_post_date {
