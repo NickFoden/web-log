@@ -3,3 +3,7 @@ dispatch:
     service: web-log
   - url: "www.nickfoden.dev/*"
     service: web-log
+  - url: "nickfoden.com/*"
+    service: web-log
+  - url: "www.nickfoden.com/*"
+    service: web-log
