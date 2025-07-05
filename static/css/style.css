@@ -75,8 +75,9 @@ main {
 }
 
 .index_post_date {
-  font-size: 16px;
-  margin: 0 0 0 8px;
+  font-size: 12px;
+  font-style: italic;
+  margin: 2px 0 0 0px;
 
   @media only screen and (min-width: 768px) {
     font-size: 14px;

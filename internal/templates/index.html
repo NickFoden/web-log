@@ -2,14 +2,12 @@
 <ul class="index_posts_ul">
   {{ range .Posts }}
   <li class="index_post_li">
-    <div class="row">
-      <a class="font_roboto-condensed index_post_link" href="/posts/{{ .Slug }}"
-        >{{ .Title }}</a
-      >
-      <p class="font_roboto-condensed index_post_date">
-        ({{.CreatedAt.Format "2006-01-02"}})
-      </p>
-    </div>
+    <a class="font_roboto-condensed index_post_link" href="/posts/{{ .Slug }}"
+      >{{ .Title }}</a
+    >
+    <p class="font_roboto-condensed index_post_date">
+      ({{.CreatedAt.Format "2006-01-02"}})
+    </p>
     <p class="font_roboto-condensed index_post_content_preview">
       {{ .ContentPreview }}
     </p>
