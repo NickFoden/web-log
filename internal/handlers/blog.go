@@ -48,9 +48,16 @@ func (h *BlogHandler) Index(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
+func (h *BlogHandler) Ai(w http.ResponseWriter, r *http.Request) {
+
+	renderTemplate(w, "ai.html", map[string]any{
+		"Title": "Web Log by Nick Foden",
+	})
+}
+
 func (h *BlogHandler) About(w http.ResponseWriter, r *http.Request) {
 
-	renderTemplate(w, "about.html", map[string]interface{}{
+	renderTemplate(w, "about.html", map[string]any{
 		"Title": "Web Log by Nick Foden",
 	})
 }
