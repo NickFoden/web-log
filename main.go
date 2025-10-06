@@ -36,6 +36,7 @@ func main() {
 	// Pages
 	r.Get("/", blogHandler.Index)
 	r.Get("/about", blogHandler.About)
+	r.Get("/ai", blogHandler.Ai)
 	r.Get("/posts/{slug}", blogHandler.Post)
 
 	// API
