@@ -165,6 +165,12 @@ func (h *BlogHandler) Feed(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Write([]byte(xml.Header))
-	w.Write(data)
+	if _, err := w.Write([]byte(xml.Header)); err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	if _, err := w.Write(data); err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
 }
