@@ -23,6 +23,7 @@ footer p {
 footer nav.footer_nav {
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: 24px;
   margin-bottom: 12px;
 }
@@ -34,6 +35,14 @@ footer nav.footer_nav a {
 
 footer nav.footer_nav a:hover {
   text-decoration: underline;
+}
+
+footer nav.footer_nav a svg {
+  transition: opacity 0.2s;
+}
+
+footer nav.footer_nav a svg:hover {
+  opacity: 0.6;
 }
 
 header {
