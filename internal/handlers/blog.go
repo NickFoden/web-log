@@ -166,7 +166,9 @@ func (h *BlogHandler) Feed(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Combine header and data into a single write to avoid partial writes
-	output := append([]byte(xml.Header), data...)
+	output := make([]byte, 0, len(xml.Header)+len(data))
+	output = append(output, []byte(xml.Header)...)
+	output = append(output, data...)
 	if _, err := w.Write(output); err != nil {
 		// Cannot send error response after w.Write has been called
 		// Log the error if needed
