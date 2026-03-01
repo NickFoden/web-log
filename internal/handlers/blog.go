@@ -2,16 +2,42 @@ package handlers
 
 import (
 	"bytes"
+	"encoding/xml"
 	"fmt"
 	"html/template"
 	"net/http"
 	"os"
+	"time"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/nickfoden/web-log/internal/models"
 	"github.com/yuin/goldmark"
 	"github.com/yuin/goldmark/renderer/html"
 )
+
+type rssItem struct {
+	XMLName     xml.Name `xml:"item"`
+	Title       string   `xml:"title"`
+	Link        string   `xml:"link"`
+	Description string   `xml:"description"`
+	PubDate     string   `xml:"pubDate"`
+	GUID        string   `xml:"guid"`
+}
+
+type rssChannel struct {
+	XMLName       xml.Name  `xml:"channel"`
+	Title         string    `xml:"title"`
+	Link          string    `xml:"link"`
+	Description   string    `xml:"description"`
+	LastBuildDate string    `xml:"lastBuildDate"`
+	Items         []rssItem `xml:"item"`
+}
+
+type rssFeed struct {
+	XMLName xml.Name   `xml:"rss"`
+	Version string     `xml:"version,attr"`
+	Channel rssChannel `xml:"channel"`
+}
 
 type BlogHandler struct {
 	posts []models.Post
@@ -98,4 +124,47 @@ func (h *BlogHandler) Post(w http.ResponseWriter, r *http.Request) {
 	}
 
 	http.NotFound(w, r)
+}
+
+func (h *BlogHandler) Feed(w http.ResponseWriter, r *http.Request) {
+	baseURL := "https://nickfoden.com"
+
+	items := make([]rssItem, 0, len(h.posts))
+	for _, post := range h.posts {
+		link := baseURL + "/posts/" + post.Slug
+		items = append(items, rssItem{
+			Title:       post.Title,
+			Link:        link,
+			Description: post.ContentPreview,
+			PubDate:     post.CreatedAt.Format(time.RFC1123Z),
+			GUID:        link,
+		})
+	}
+
+	lastBuildDate := time.Now().Format(time.RFC1123Z)
+	if len(h.posts) > 0 {
+		lastBuildDate = h.posts[0].CreatedAt.Format(time.RFC1123Z)
+	}
+
+	feed := rssFeed{
+		Version: "2.0",
+		Channel: rssChannel{
+			Title:         "Web Log by Nick Foden",
+			Link:          baseURL,
+			Description:   "A web log by Nick Foden",
+			LastBuildDate: lastBuildDate,
+			Items:         items,
+		},
+	}
+
+	w.Header().Set("Content-Type", "application/rss+xml; charset=utf-8")
+
+	data, err := xml.MarshalIndent(feed, "", "  ")
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	w.Write([]byte(xml.Header))
+	w.Write(data)
 }
