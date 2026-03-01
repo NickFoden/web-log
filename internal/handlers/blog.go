@@ -161,16 +161,15 @@ func (h *BlogHandler) Feed(w http.ResponseWriter, r *http.Request) {
 
 	data, err := xml.MarshalIndent(feed, "", "  ")
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 		return
 	}
 
-	if _, err := w.Write([]byte(xml.Header)); err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-	if _, err := w.Write(data); err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+	// Combine header and data into a single write to avoid partial writes
+	output := append([]byte(xml.Header), data...)
+	if _, err := w.Write(output); err != nil {
+		// Cannot send error response after w.Write has been called
+		// Log the error if needed
 		return
 	}
 }
