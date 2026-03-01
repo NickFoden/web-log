@@ -38,6 +38,7 @@ func main() {
 	r.Get("/about", blogHandler.About)
 	r.Get("/ai", blogHandler.Ai)
 	r.Get("/posts/{slug}", blogHandler.Post)
+	r.Get("/feed.xml", blogHandler.Feed)
 
 	// API
 	r.Get("/get_current_year", (func(w http.ResponseWriter, r *http.Request) {
