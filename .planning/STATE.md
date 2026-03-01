@@ -12,7 +12,7 @@ See: .planning/PROJECT.md (updated 2026-02-27)
 Phase: 1 of 2 (Code Quality)
 Plan: 0 of TBD in current phase
 Status: Ready to plan
-Last activity: 2026-03-01 - Completed quick task 1: Move blog posts from HTML to Markdown format
+Last activity: 2026-03-01 - Completed quick task 2: Add About and GitHub links to site footer
 
 Progress: [░░░░░░░░░░] 0%
 
@@ -59,9 +59,10 @@ None yet.
 | # | Description | Date | Commit | Directory |
 |---|-------------|------|--------|-----------|
 | 1 | Move blog posts from HTML to Markdown format | 2026-03-01 | c5ec251 | [1-move-blog-posts-from-html-to-markdown-fo](./quick/1-move-blog-posts-from-html-to-markdown-fo/) |
+| 2 | Add About and GitHub links to site footer | 2026-03-01 | ddb63e0 | [2-add-about-link-and-github-link-to-the-si](./quick/2-add-about-link-and-github-link-to-the-si/) |
 
 ## Session Continuity
 
-Last session: 2026-02-27
-Stopped at: Roadmap created, ready to plan Phase 1
+Last session: 2026-03-01
+Stopped at: Completed quick task 2: Add About and GitHub links to site footer
 Resume file: None
