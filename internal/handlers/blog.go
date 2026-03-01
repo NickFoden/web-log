@@ -127,7 +127,7 @@ func (h *BlogHandler) Post(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *BlogHandler) Feed(w http.ResponseWriter, r *http.Request) {
-	baseURL := "https://nickfoden.com"
+	baseURL := "https://www.nickfoden.com"
 
 	items := make([]rssItem, 0, len(h.posts))
 	for _, post := range h.posts {
