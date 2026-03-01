@@ -20,6 +20,22 @@ footer p {
   font-size: 12px;
 }
 
+footer nav.footer_nav {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 12px;
+}
+
+footer nav.footer_nav a {
+  font-size: 14px;
+  text-decoration: none;
+}
+
+footer nav.footer_nav a:hover {
+  text-decoration: underline;
+}
+
 header {
   margin: 0 auto;
   max-width: 1024px;
