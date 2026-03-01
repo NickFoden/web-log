@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"bytes"
 	"fmt"
 	"html/template"
 	"net/http"
@@ -8,6 +9,8 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/nickfoden/web-log/internal/models"
+	"github.com/yuin/goldmark"
+	"github.com/yuin/goldmark/renderer/html"
 )
 
 type BlogHandler struct {
@@ -67,13 +70,26 @@ func (h *BlogHandler) Post(w http.ResponseWriter, r *http.Request) {
 
 	for _, post := range h.posts {
 		if post.Slug == slug {
-			content, err := os.ReadFile(fmt.Sprintf("internal/content/posts/%s.html", post.Slug))
+			source, err := os.ReadFile(fmt.Sprintf("internal/content/posts/%s.md", post.Slug))
 			if err != nil {
 				http.Error(w, err.Error(), http.StatusInternalServerError)
 				return
 			}
+
+			md := goldmark.New(
+				goldmark.WithRendererOptions(
+					html.WithUnsafe(),
+				),
+			)
+
+			var buf bytes.Buffer
+			if err := md.Convert(source, &buf); err != nil {
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+				return
+			}
+
 			renderTemplate(w, "post.html", map[string]interface{}{
-				"Content": template.HTML(content),
+				"Content": template.HTML(buf.String()),
 				"Title":   "Web Log by Nick Foden",
 				"Post":    post,
 			})
