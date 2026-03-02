@@ -2,16 +2,42 @@ package handlers
 
 import (
 	"bytes"
+	"encoding/xml"
 	"fmt"
 	"html/template"
 	"net/http"
 	"os"
+	"time"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/nickfoden/web-log/internal/models"
 	"github.com/yuin/goldmark"
 	"github.com/yuin/goldmark/renderer/html"
 )
+
+type rssItem struct {
+	XMLName     xml.Name `xml:"item"`
+	Title       string   `xml:"title"`
+	Link        string   `xml:"link"`
+	Description string   `xml:"description"`
+	PubDate     string   `xml:"pubDate"`
+	GUID        string   `xml:"guid"`
+}
+
+type rssChannel struct {
+	XMLName       xml.Name  `xml:"channel"`
+	Title         string    `xml:"title"`
+	Link          string    `xml:"link"`
+	Description   string    `xml:"description"`
+	LastBuildDate string    `xml:"lastBuildDate"`
+	Items         []rssItem `xml:"item"`
+}
+
+type rssFeed struct {
+	XMLName xml.Name   `xml:"rss"`
+	Version string     `xml:"version,attr"`
+	Channel rssChannel `xml:"channel"`
+}
 
 type BlogHandler struct {
 	posts []models.Post
@@ -98,4 +124,54 @@ func (h *BlogHandler) Post(w http.ResponseWriter, r *http.Request) {
 	}
 
 	http.NotFound(w, r)
+}
+
+func (h *BlogHandler) Feed(w http.ResponseWriter, r *http.Request) {
+	baseURL := "https://www.nickfoden.com"
+
+	items := make([]rssItem, 0, len(h.posts))
+	for _, post := range h.posts {
+		link := baseURL + "/posts/" + post.Slug
+		items = append(items, rssItem{
+			Title:       post.Title,
+			Link:        link,
+			Description: post.ContentPreview,
+			PubDate:     post.CreatedAt.Format(time.RFC1123Z),
+			GUID:        link,
+		})
+	}
+
+	lastBuildDate := time.Now().Format(time.RFC1123Z)
+	if len(h.posts) > 0 {
+		lastBuildDate = h.posts[0].CreatedAt.Format(time.RFC1123Z)
+	}
+
+	feed := rssFeed{
+		Version: "2.0",
+		Channel: rssChannel{
+			Title:         "Web Log by Nick Foden",
+			Link:          baseURL,
+			Description:   "A web log by Nick Foden",
+			LastBuildDate: lastBuildDate,
+			Items:         items,
+		},
+	}
+
+	w.Header().Set("Content-Type", "application/rss+xml; charset=utf-8")
+
+	data, err := xml.MarshalIndent(feed, "", "  ")
+	if err != nil {
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		return
+	}
+
+	// Combine header and data into a single write to avoid partial writes
+	output := make([]byte, 0, len(xml.Header)+len(data))
+	output = append(output, []byte(xml.Header)...)
+	output = append(output, data...)
+	if _, err := w.Write(output); err != nil {
+		// Cannot send error response after w.Write has been called
+		// Log the error if needed
+		return
+	}
 }
