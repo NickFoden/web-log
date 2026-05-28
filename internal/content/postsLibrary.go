@@ -7,6 +7,13 @@ import (
 )
 
 var PostsLibrary = map[string]models.Post{
+	"self-driving-train": {
+		Title:          "Self-Driving Train",
+		Content:        "",
+		ContentPreview: `A self-driving train as the goal for ai enabled software development.`,
+		CreatedAt:      time.Date(2026, 5, 28, 0, 0, 0, 0, time.UTC),
+		Slug:           "self-driving-train",
+	},
 	"reduce-the-cost-of-owning-software": {
 		Title:          "Reduce the Cost of Owning Software",
 		Content:        "",

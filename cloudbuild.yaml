@@ -1,16 +1,16 @@
 steps:
-  - name: "golang:1.22"
+  - name: "golang:1.26"
     args: ["go", "get", "-d", "./..."]
     env:
-      - "GO_VERSION=1.22"
+      - "GO_VERSION=1.26"
       - "GOPATH=/gopath"
     volumes:
       - name: "go"
         path: "/gopath"
-  - name: "golang:1.22"
+  - name: "golang:1.26"
     args: ["go", "build", "-o", "main", "."]
     env:
-      - "GO_VERSION=1.22"
+      - "GO_VERSION=1.26"
       - "GOPATH=/gopath"
     volumes:
       - name: "go"
@@ -19,7 +19,7 @@ steps:
     args: ["app", "deploy"]
     timeout: "1600s"
     env:
-      - "GO_VERSION=1.22"
+      - "GO_VERSION=1.26"
       - "GOPATH=/gopath"
     volumes:
       - name: "go"
