@@ -43,7 +43,7 @@ func main() {
 	// API
 	r.Get("/get_current_year", (func(w http.ResponseWriter, r *http.Request) {
 		year := time.Now().Year()
-		fmt.Fprintf(w, "%d", year)
+		_, _ = fmt.Fprintf(w, "%d", year)
 	}))
 
 	port := os.Getenv("PORT")
