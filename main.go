@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"strconv"
 	"strings"
 	"time"
 
@@ -41,10 +42,9 @@ func main() {
 	r.Get("/posts/{slug}", blogHandler.Post)
 
 	// API
-	r.Get("/get_current_year", (func(w http.ResponseWriter, r *http.Request) {
-		year := time.Now().Year()
-		fmt.Fprintf(w, "%d", year)
-	}))
+	r.Get("/current-year", func(w http.ResponseWriter, r *http.Request) {
+		_, _ = w.Write([]byte(strconv.Itoa(time.Now().Year())))
+	})
 
 	port := os.Getenv("PORT")
 	if port == "" {

@@ -7,6 +7,7 @@
 **Overall:** Layered MVC pattern with file-based post storage
 
 **Key Characteristics:**
+
 - HTTP request routing via chi router at application layer
 - Handler layer manages HTTP request/response cycles
 - Content layer manages post metadata and retrieval
@@ -18,6 +19,7 @@
 ## Layers
 
 **Entry Point & Router Layer:**
+
 - Purpose: Bootstrap server, configure routes, establish middleware
 - Location: `main.go`
 - Contains: Route definitions, static file server setup, middleware configuration (logging, panic recovery)
@@ -25,6 +27,7 @@
 - Used by: HTTP server at startup
 
 **Handler Layer:**
+
 - Purpose: Process HTTP requests, render templates, coordinate between routing and content retrieval
 - Location: `internal/handlers/blog.go`
 - Contains: `BlogHandler` struct with methods for Index, About, Ai, and Post routes; template rendering function
@@ -32,6 +35,7 @@
 - Used by: Router layer for handling HTTP requests
 
 **Content Layer:**
+
 - Purpose: Aggregate and retrieve post data from in-memory library
 - Location: `internal/content/posts.go`, `internal/content/postsLibrary.go`
 - Contains: `GetAllPosts()` function that returns sorted posts, `GetPost()` function for retrieval, `PostsLibrary` map storing post metadata
@@ -39,6 +43,7 @@
 - Used by: Handler layer to populate template data
 
 **Models Layer:**
+
 - Purpose: Define core data structures
 - Location: `internal/models/post.go`
 - Contains: `Post` struct with Title, Content, ContentPreview, Slug, CreatedAt fields
@@ -46,6 +51,7 @@
 - Used by: Content and handler layers
 
 **Template Layer:**
+
 - Purpose: Render HTML responses with dynamic content
 - Location: `internal/templates/` (base.html, index.html, post.html, about.html, ai.html)
 - Contains: HTML templates using Go template syntax with base template inheritance pattern
@@ -53,6 +59,7 @@
 - Used by: Handler layer for response generation
 
 **Static Files Layer:**
+
 - Purpose: Serve CSS stylesheets and favicon assets
 - Location: `static/css/`, `static/assets/`
 - Contains: CSS files and favicon
@@ -84,7 +91,7 @@
 
 **Current Year API Request:**
 
-1. Client requests GET `/get_current_year` (triggered by HTMX in footer)
+1. Client requests GET `/current-year` (triggered by HTMX in footer)
 2. Inline handler returns current year as string
 3. HTMX replaces footer element with year
 
@@ -98,21 +105,25 @@
 ## Key Abstractions
 
 **BlogHandler:**
+
 - Purpose: Encapsulate HTTP handler logic and coordinate post data retrieval with templating
 - Examples: `internal/handlers/blog.go`
 - Pattern: Receiver methods on `BlogHandler` struct implement http.Handler interface signature
 
 **PostsLibrary:**
+
 - Purpose: Central registry of post metadata; provides single source of truth for post catalog
 - Examples: `internal/content/postsLibrary.go`
 - Pattern: Map-based lookup by slug for O(1) post retrieval
 
 **renderTemplate Function:**
+
 - Purpose: Standardize template loading, parsing, and execution with consistent error handling
 - Examples: `internal/handlers/blog.go` lines 17-37
 - Pattern: Helper function abstracting Go template API and response header management
 
 **FileServer:**
+
 - Purpose: Serve static files with proper path handling and redirect logic
 - Examples: `main.go` lines 57-76
 - Pattern: Utility function wrapping chi's file serving with chi router context integration
@@ -120,16 +131,18 @@
 ## Entry Points
 
 **HTTP Server:**
+
 - Location: `main.go` main() function
 - Triggers: Application startup
 - Responsibilities: Initialize chi router, configure middleware (logging, panic recovery), load posts into memory, register routes, start HTTP listener on configured port (default 8080)
 
 **Route Handlers:**
+
 - GET `/` → `blogHandler.Index` - displays list of all posts
 - GET `/posts/{slug}` → `blogHandler.Post` - displays individual post with full content
 - GET `/about` → `blogHandler.About` - displays about page
 - GET `/ai` → `blogHandler.Ai` - displays AI-related page
-- GET `/get_current_year` → inline handler - returns current year for footer
+- GET `/current-year` → inline handler - returns current year for footer
 - GET `/static/*` → FileServer - serves CSS, favicon, and other static assets
 
 ## Error Handling
@@ -137,6 +150,7 @@
 **Strategy:** HTTP error responses with status codes
 
 **Patterns:**
+
 - Template parsing errors → http.Error with 500 status
 - File read errors (post HTML) → http.Error with 500 status
 - Post not found → http.NotFound with 404 status
@@ -154,4 +168,4 @@
 
 ---
 
-*Architecture analysis: 2026-02-27*
+_Architecture analysis: 2026-02-27_
