@@ -41,7 +41,7 @@ func main() {
 	r.Get("/posts/{slug}", blogHandler.Post)
 
 	// API
-	r.Get("/get_current_year", (func(w http.ResponseWriter, r *http.Request) {
+	r.Get("/current-year", (func(w http.ResponseWriter, r *http.Request) {
 		year := time.Now().Year()
 		_, _ = fmt.Fprintf(w, "%d", year)
 	}))
